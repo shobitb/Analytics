@@ -1,13 +1,22 @@
 package edu.nyu.analytics.jobs;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import java.util.*;
-import java.io.*;
 
 public class SongFrequency {
 
@@ -52,9 +61,31 @@ public class SongFrequency {
 		}
 	}
 
+	static class SongFrequencyMapper1 extends
+			Mapper<LongWritable, Text, IntWritable, Text> {
+
+		public void map(LongWritable key, Text value, Context context)
+				throws IOException, InterruptedException {
+
+			String line = value.toString();
+			String trackId = null;
+
+			if (line.split(",").length >= 1)
+				trackId = line.split(",")[0];
+
+			if (line.split(",").length >= 1 && !ignoreSongs.contains(trackId)) {
+				if (mapOfSongIDVsTrackID.containsKey(trackId)) {
+					trackId = mapOfSongIDVsTrackID.get(trackId);
+				}
+				int frequency = Integer.parseInt(line.split(",")[1]);
+				context.write(new IntWritable(frequency), new Text(trackId));
+			}
+		}
+	}
+
 	public static void main(String[] args) throws Exception {
 
-		if (args.length != 2) {
+		if (args.length != 3) {
 			System.err
 					.println("Usage: SongFrequency <input path> <output path>");
 			System.exit(-1);
@@ -78,7 +109,8 @@ public class SongFrequency {
 		}
 		reader1.close();
 
-		Job job = new Job();
+		Configuration conf = new Configuration();
+		Job job = new Job(conf, "first");
 		job.setJarByClass(SongFrequency.class);
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));
@@ -91,6 +123,29 @@ public class SongFrequency {
 		job.setOutputValueClass(IntWritable.class);
 		job.waitForCompletion(true);
 
+		System.out.println("First Job Completed.....Starting Second Job");
+		System.out.println(job.isSuccessful());
+
+		if (job.isSuccessful()) {
+			System.out.println("Job 2 begins");
+			
+			Configuration conf2 = new Configuration();
+			Job job2 = new Job(conf2, "second");
+			job2.setJarByClass(SongFrequency.class);
+
+			FileInputFormat.addInputPath(job2, new Path(args[1]
+					+ "/part-r-0000"));
+			FileOutputFormat.setOutputPath(job2, new Path(args[2]));
+
+			job2.setMapperClass(SongFrequencyMapper1.class);
+			// job2.setReducerClass(SongFrequencyReducer.class);
+
+			job2.setOutputKeyClass(IntWritable.class);
+			job2.setOutputValueClass(Text.class);
+			job2.waitForCompletion(true);
+			
+			System.out.println("Job 2 completed successfully");
+		}
 	}
 
 }
