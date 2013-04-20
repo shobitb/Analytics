@@ -70,14 +70,9 @@ public class SongFrequency {
 			String line = value.toString();
 			String trackId = null;
 
-			if (line.split(",").length >= 1)
-				trackId = line.split(",")[0];
-
-			if (line.split(",").length >= 1 && !ignoreSongs.contains(trackId)) {
-				if (mapOfSongIDVsTrackID.containsKey(trackId)) {
-					trackId = mapOfSongIDVsTrackID.get(trackId);
-				}
-				int frequency = Integer.parseInt(line.split(",")[1]);
+			if (line.split("\t").length >= 1 && !ignoreSongs.contains(trackId)) {
+				trackId = line.split("\t")[0];
+				int frequency = Integer.parseInt(line.split("\t")[1]);
 				context.write(new IntWritable(frequency), new Text(trackId));
 			}
 		}
@@ -134,7 +129,7 @@ public class SongFrequency {
 			job2.setJarByClass(SongFrequency.class);
 
 			FileInputFormat.addInputPath(job2, new Path(args[1]
-					+ "/part-r-0000"));
+					+ "/part-r-00000"));
 			FileOutputFormat.setOutputPath(job2, new Path(args[2]));
 
 			job2.setMapperClass(SongFrequencyMapper1.class);
