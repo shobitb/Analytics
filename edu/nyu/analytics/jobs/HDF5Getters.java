@@ -40,14 +40,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
-//import ncsa.hdf.hdf5lib.*;
-import ncsa.hdf.object.HObject;
-import ncsa.hdf.object.Datatype;
-import ncsa.hdf.object.Dataset;
-import ncsa.hdf.object.h5.*;
 import java.util.Vector;
-import java.util.Arrays;
+
+import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
+import ncsa.hdf.object.h5.H5CompoundDS;
+import ncsa.hdf.object.h5.H5File;
+import ncsa.hdf.object.h5.H5ScalarDS;
+//import ncsa.hdf.hdf5lib.*;
 
 
 /**
