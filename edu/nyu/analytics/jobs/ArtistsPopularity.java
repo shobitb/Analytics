@@ -15,6 +15,7 @@ import java.util.Map;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;
@@ -40,11 +41,9 @@ public class ArtistsPopularity {
 
 	static Statement statement;
 
-	static class SongFrequencyMapper extends
-			Mapper<LongWritable, Text, Text, IntWritable> {
+	static class SongFrequencyMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
-		public void map(LongWritable key, Text value, Context context)
-				throws IOException, InterruptedException {
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
 			String line = value.toString();
 			String songId = null;
@@ -55,8 +54,7 @@ public class ArtistsPopularity {
 			if (line.split(",").length >= 2 && !ignoreSongs.contains(songId)) {
 				String trackId = "";
 				if (songId.equals("SONVJUL12A6701FB7A")) {
-					System.out.println("CHECKKKK --> "
-							+ mapOfSongIDVsTrackID.containsKey(songId));
+					System.out.println("CHECKKKK --> " + mapOfSongIDVsTrackID.containsKey(songId));
 				}
 				if (mapOfSongIDVsTrackID.containsKey(songId)) {
 					trackId = mapOfSongIDVsTrackID.get(songId);
@@ -66,17 +64,15 @@ public class ArtistsPopularity {
 					System.out.println("Checkk --> " + trackId);
 				}
 				String frequency = line.split(",")[2];
-				context.write(new Text(trackId),
-						new IntWritable(Integer.parseInt(frequency)));
+				context.write(new Text(trackId), new IntWritable(Integer.parseInt(frequency)));
 			}
 		}
 	}
 
-	static class SongFrequencyReducer extends
-			Reducer<Text, IntWritable, Text, IntWritable> {
+	static class SongFrequencyReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
-		public void reduce(Text key, Iterable<IntWritable> values,
-				Context context) throws IOException, InterruptedException {
+		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException,
+				InterruptedException {
 
 			int totalFreq = 0;
 			for (IntWritable value : values) {
@@ -87,111 +83,70 @@ public class ArtistsPopularity {
 				System.out.println("OH YES " + totalFreq);
 			}
 			Put p = new Put(key.getBytes());
-			p.add(Bytes.toBytes("listens"), Bytes.toBytes("someQualifier"),
-					Bytes.toBytes(totalFreq));
+			p.add(Bytes.toBytes("listens"), Bytes.toBytes("someQualifier"), Bytes.toBytes(totalFreq));
 			table_songFrequency.put(p);
 
 			context.write(key, new IntWritable(totalFreq));
 		}
 	}
 
-	static class SongArtistMapper extends
-			Mapper<LongWritable, Text, Text, IntWritable> {
+	static class ArtistsPopularityMapper extends Mapper<LongWritable, Text, Text, Text> {
 
-		public void map(LongWritable key, Text value, Context context)
-				throws IOException, InterruptedException {
-
-			ResultSet rs;
-			try {
-				rs = statement.executeQuery("SELECT * FROM songs");
-
-				while (rs.next()) {
-					String trackId = rs.getString(1);
-					String artist_id = rs.getString(5);
-
-					if (artistSongsMap.containsKey(artist_id)) {
-						HashSet<String> temp = artistSongsMap.get(artist_id);
-						temp.add(trackId);
-						artistSongsMap.put(artist_id, temp);
-					} else {
-						HashSet<String> temp = new HashSet<String>();
-						temp.add(trackId);
-						artistSongsMap.put(artist_id, temp);
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-	static class ArtistsPopularityMapper extends
-			Mapper<LongWritable, Text, Text, Text> {
-
-		public void map(LongWritable key, Text value, Context context)
-				throws IOException, InterruptedException {
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
 			String line = value.toString();
+			String trackId = "";
 			String artistId = "";
 
 			if (line.split(",").length >= 3) {
 				artistId = line.split(",")[0];
 			}
 
-			HashSet<String> rs = new HashSet<String>();
-			if (artistSongsMap.containsKey(artistId))
-				rs = artistSongsMap.get(artistId);
+			int frequency = 0;
 
-			for (String trackId : rs) {
+			ResultSet rs;
+			try {
+				rs = statement.executeQuery("SELECT track_id FROM songs WHERE artist_id='" + artistId + "'");
 
-				Get g = new Get(Bytes.toBytes(trackId));
-				Result r = table_songFrequency.get(g);
+				while (rs.next()) {
+					String tmp = rs.getString(1);
 
-				byte[] temp_value = r.getValue(Bytes.toBytes("listens"),
-						Bytes.toBytes("someQualifier"));
+					Get g = new Get(Bytes.toBytes(tmp));
+					Result r = table_songFrequency.get(g);
+					int valueStr = 0;
+					for (KeyValue kv : r.raw())
+						valueStr = Bytes.toInt(kv.getValue());
 
-				String valueStr = Bytes.toString(temp_value);
+					if (true) {
+						if (!ignoreSongs.contains(tmp)) {
+							try {
+								int temp_int = valueStr;
 
-				if (trackId.equals("TRWIPEU128E078997D")) {
-					System.out.println("here --> " + valueStr);
-				}
-
-				if (artistId.equals("AR633SY1187B9AC3B9")) {
-					System.out.println("Once atleast?" + trackId);
-				}
-
-				if (valueStr != null) {
-					if (!ignoreSongs.contains(trackId)) {
-
-						if (artistId.equals("AR633SY1187B9AC3B9")) {
-							System.out.println("Once atleast?" + trackId);
+								if (temp_int > frequency) {
+									frequency = temp_int;
+									trackId = tmp;
+								}
+							} catch (NumberFormatException e) {
+							}
 						}
-						Put p = new Put(Bytes.toBytes(artistId));
-						p.add(Bytes.toBytes("artist"),
-								Bytes.toBytes("someQualifier"),
-								Bytes.toBytes(artistId));
-						p.add(Bytes.toBytes("song"),
-								Bytes.toBytes("someQualifier"),
-								Bytes.toBytes(trackId));
-						p.add(Bytes.toBytes("frequency"),
-								Bytes.toBytes("someQualifier"),
-								Bytes.toBytes(valueStr));
-
-						table_artists.put(p);
-
-						// context.write(new Text(artistId), new
-						// Text(trackId));
 					}
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
+
+			Put p = new Put(Bytes.toBytes(artistId));
+			p.add(Bytes.toBytes("artist"), Bytes.toBytes("someQualifier"), Bytes.toBytes(artistId));
+			p.add(Bytes.toBytes("song"), Bytes.toBytes("someQualifier"), Bytes.toBytes(trackId));
+			p.add(Bytes.toBytes("frequency"), Bytes.toBytes("someQualifier"), Bytes.toBytes(frequency));
+
+			table_artists.put(p);
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 4) {
-			System.err
-					.println("Usage: SongFrequency <input path> <temp path> <temp-output path> <output path>");
+			System.err.println("Usage: SongFrequency <input path> <temp path> <temp-output path> <output path>");
 			System.exit(-1);
 		}
 
@@ -208,9 +163,8 @@ public class ArtistsPopularity {
 		}
 		reader.close();
 
-		BufferedReader reader1 = new BufferedReader(
-				new FileReader(
-						"/Users/hiral/Documents/RealTimeBigData/Data/allTrackEchonestId.txt"));
+		BufferedReader reader1 = new BufferedReader(new FileReader(
+				"/Users/hiral/Documents/RealTimeBigData/Data/allTrackEchonestId.txt"));
 		String line1 = "";
 		while ((line1 = reader1.readLine()) != null) {
 			String[] arr = line1.split(",");
@@ -237,45 +191,24 @@ public class ArtistsPopularity {
 		// + job.isSuccessful());
 
 		if (true) {
-			Configuration conf1 = new Configuration();
-			Job job1 = new Job(conf1, "mezzanine");
-			job1.setJarByClass(ArtistsPopularity.class);
+			System.out.println("Second job begins now..");
 
-			FileInputFormat.addInputPath(job1, new Path(args[2]));
-			FileOutputFormat.setOutputPath(job1, new Path(args[3]));
+			Configuration conf2 = new Configuration();
+			Job job2 = new Job(conf2, "second");
+			job2.setJarByClass(ArtistsPopularity.class);
 
-			job1.setMapperClass(SongArtistMapper.class);
+			FileInputFormat.addInputPath(job2, new Path(args[2]));
+			FileOutputFormat.setOutputPath(job2, new Path(args[3]));
+
+			job2.setMapperClass(ArtistsPopularityMapper.class);
 			// job2.setReducerClass(ArtistsPopularityReducer.class);
 
-			job1.setOutputKeyClass(Text.class);
-			job1.setOutputValueClass(IntWritable.class);
-			job1.waitForCompletion(true);
+			job2.setOutputKeyClass(Text.class);
+			job2.setOutputValueClass(IntWritable.class);
+			job2.waitForCompletion(true);
 
-			System.out.println("Mezzanine job completed..");
-			System.out.println("Job completion was successful: "
-					+ job1.isSuccessful());
-
-			if (job1.isSuccessful()) {
-				System.out.println("Second job begins now..");
-
-				Configuration conf2 = new Configuration();
-				Job job2 = new Job(conf2, "second");
-				job2.setJarByClass(ArtistsPopularity.class);
-
-				FileInputFormat.addInputPath(job2, new Path(args[2]));
-				FileOutputFormat.setOutputPath(job2, new Path(args[3]));
-
-				job2.setMapperClass(ArtistsPopularityMapper.class);
-				// job2.setReducerClass(ArtistsPopularityReducer.class);
-
-				job2.setOutputKeyClass(Text.class);
-				job2.setOutputValueClass(IntWritable.class);
-				job2.waitForCompletion(true);
-
-				System.out.println("Second job completed..");
-				System.out.println("Job completion was successful: "
-						+ job2.isSuccessful());
-			}
+			System.out.println("Second job completed..");
+			System.out.println("Job completion was successful: " + job2.isSuccessful());
 		}
 
 		table_songFrequency.close();
