@@ -82,7 +82,7 @@ public class SongFrequency {
 
 		if (args.length != 3) {
 			System.err
-					.println("Usage: SongFrequency <input path> <output path>");
+					.println("Usage: SongFrequency <input path> <temp path> <output path>");
 			System.exit(-1);
 		}
 
@@ -119,10 +119,10 @@ public class SongFrequency {
 		job.waitForCompletion(true);
 
 		System.out.println("First Job Completed.....Starting Second Job");
-		System.out.println(job.isSuccessful());
+		System.out.println("Job completion was successful: "  +job.isSuccessful());
 
 		if (job.isSuccessful()) {
-			System.out.println("Job 2 begins");
+			System.out.println("Second job begins now..");
 			
 			Configuration conf2 = new Configuration();
 			Job job2 = new Job(conf2, "second");
@@ -139,7 +139,8 @@ public class SongFrequency {
 			job2.setOutputValueClass(Text.class);
 			job2.waitForCompletion(true);
 			
-			System.out.println("Job 2 completed successfully");
+			System.out.println("Second job completed..");
+			System.out.println("Job completion was successful: "  +job2.isSuccessful());
 		}
 	}
 

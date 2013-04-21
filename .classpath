@@ -89,5 +89,9 @@
 	<classpathentry kind="lib" path="/Users/hiral/hadoop/hadoop-1.0.4/lib/slf4j-api-1.4.3.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/hadoop/hadoop-1.0.4/lib/slf4j-log4j12-1.4.3.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/hadoop/hadoop-1.0.4/lib/xmlenc-0.52.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hbase-0.94.6.1/hbase-0.94.6.1.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/zookeeper-3.4.5 2/zookeeper-3.4.5.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/protobuf-java-2.2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

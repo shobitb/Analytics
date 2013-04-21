@@ -3,3 +3,11 @@
 /SongFrequency.class
 /HDF5Getters.class
 /SongFrequency$SongFrequencyMapper1.class
+/ArtistsPopularity.class
+/HBaseConnector.class
+/HBaseTest.class
+/ArtistsPopularity$SongFrequencyMapper.class
+/ArtistsPopularity$SongFrequencyReducer.class
+/ArtistsPopularity$ArtistsPopularityMapper.class
+/ArtistsPopularity$ArtistsPopularityReducer.class
+/ArtistsPopularity$SongArtistMapper.class

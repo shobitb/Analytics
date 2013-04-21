@@ -599,6 +599,7 @@ public class HDF5Getters {
 		return -1;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static int get_member_int(H5File h5, int songidx, String table,
 			String member) throws Exception {
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(table);
@@ -610,6 +611,7 @@ public class HDF5Getters {
 		return col[songidx];
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static double get_member_double(H5File h5, int songidx,
 			String table, String member) throws Exception {
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(table);
@@ -621,6 +623,7 @@ public class HDF5Getters {
 		return col[songidx];
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static String get_member_string(H5File h5, int songidx,
 			String table, String member) throws Exception {
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(table);
@@ -637,6 +640,7 @@ public class HDF5Getters {
 		return get_array_double(h5, songidx, group, arrayname, ndims, "");
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static double[] get_array_double(H5File h5, int songidx,
 			String group, String arrayname, int ndims, String idxname)
 			throws Exception {
@@ -684,6 +688,7 @@ public class HDF5Getters {
 		return get_array_int(h5, songidx, group, arrayname, "");
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static int[] get_array_int(H5File h5, int songidx, String group,
 			String arrayname, String idxname) throws Exception {
 		// index
@@ -709,6 +714,7 @@ public class HDF5Getters {
 		return res;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static String[] get_array_string(H5File h5, int songidx,
 			String group, String arrayname) throws Exception {
 		// index
