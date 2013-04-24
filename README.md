@@ -8,6 +8,8 @@ Technologies
 3. We use Apache Mahout to cluster users using K-Means Algorithm (with SequenceFiles and NamedVectors representing User -> Weights of Tags of Songs Listened)
 4. We use HDFS for keeping the large amounts of data which is not possible with running Hadoop in local/standalone mode.
 
+Analytics 
+---------
 We try to answer the following from the Million Song Dataset:
 
 1. What's the most listened-to song?
