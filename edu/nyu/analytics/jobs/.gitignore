@@ -12,3 +12,6 @@
 /ArtistsPopularity$ArtistsPopularityReducer.class
 /ArtistsPopularity$SongArtistMapper.class
 /Main.class
+/EnergyDistribution.class
+/EnergyDistribution$ArtistsPopularityMapper.class
+/EnergyDistribution$EnergyDistributionMapper.class

@@ -91,20 +91,16 @@ public class HDF5Getters {
 		return get_artist_familiarity(h5, 0);
 	}
 
-	public static double get_artist_familiarity(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/metadata/songs",
-				"artist_familiarity");
+	public static double get_artist_familiarity(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/metadata/songs", "artist_familiarity");
 	}
 
 	public static double get_artist_hotttnesss(H5File h5) throws Exception {
 		return get_artist_hotttnesss(h5, 0);
 	}
 
-	public static double get_artist_hotttnesss(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/metadata/songs",
-				"artist_hotttnesss");
+	public static double get_artist_hotttnesss(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/metadata/songs", "artist_hotttnesss");
 	}
 
 	public static String get_artist_id(H5File h5) throws Exception {
@@ -119,8 +115,7 @@ public class HDF5Getters {
 		return get_artist_mbid(h5, 0);
 	}
 
-	public static String get_artist_mbid(H5File h5, int songidx)
-			throws Exception {
+	public static String get_artist_mbid(H5File h5, int songidx) throws Exception {
 		return get_member_string(h5, songidx, "/metadata/songs", "artist_mbid");
 	}
 
@@ -128,8 +123,7 @@ public class HDF5Getters {
 		return get_artist_playmeid(h5, 0);
 	}
 
-	public static int get_artist_playmeid(H5File h5, int songidx)
-			throws Exception {
+	public static int get_artist_playmeid(H5File h5, int songidx) throws Exception {
 		return get_member_int(h5, songidx, "/metadata/songs", "artist_playmeid");
 	}
 
@@ -137,48 +131,39 @@ public class HDF5Getters {
 		return get_artist_7digitalid(h5, 0);
 	}
 
-	public static int get_artist_7digitalid(H5File h5, int songidx)
-			throws Exception {
-		return get_member_int(h5, songidx, "/metadata/songs",
-				"artist_7digitalid");
+	public static int get_artist_7digitalid(H5File h5, int songidx) throws Exception {
+		return get_member_int(h5, songidx, "/metadata/songs", "artist_7digitalid");
 	}
 
 	public static double get_artist_latitude(H5File h5) throws Exception {
 		return get_artist_latitude(h5, 0);
 	}
 
-	public static double get_artist_latitude(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/metadata/songs",
-				"artist_latitude");
+	public static double get_artist_latitude(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/metadata/songs", "artist_latitude");
 	}
 
 	public static double get_artist_longitude(H5File h5) throws Exception {
 		return get_artist_longitude(h5, 0);
 	}
 
-	public static double get_artist_longitude(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/metadata/songs",
-				"artist_longitude");
+	public static double get_artist_longitude(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/metadata/songs", "artist_longitude");
 	}
 
 	public static String get_artist_location(H5File h5) throws Exception {
 		return get_artist_location(h5, 0);
 	}
 
-	public static String get_artist_location(H5File h5, int songidx)
-			throws Exception {
-		return get_member_string(h5, songidx, "/metadata/songs",
-				"artist_location");
+	public static String get_artist_location(H5File h5, int songidx) throws Exception {
+		return get_member_string(h5, songidx, "/metadata/songs", "artist_location");
 	}
 
 	public static String get_artist_name(H5File h5) throws Exception {
 		return get_artist_name(h5, 0);
 	}
 
-	public static String get_artist_name(H5File h5, int songidx)
-			throws Exception {
+	public static String get_artist_name(H5File h5, int songidx) throws Exception {
 		return get_member_string(h5, songidx, "/metadata/songs", "artist_name");
 	}
 
@@ -194,10 +179,8 @@ public class HDF5Getters {
 		return get_release_7digitalid(h5, 0);
 	}
 
-	public static int get_release_7digitalid(H5File h5, int songidx)
-			throws Exception {
-		return get_member_int(h5, songidx, "/metadata/songs",
-				"release_7digitalid");
+	public static int get_release_7digitalid(H5File h5, int songidx) throws Exception {
+		return get_member_int(h5, songidx, "/metadata/songs", "release_7digitalid");
 	}
 
 	public static String get_song_id(H5File h5) throws Exception {
@@ -212,10 +195,8 @@ public class HDF5Getters {
 		return get_song_hotttnesss(h5, 0);
 	}
 
-	public static double get_song_hotttnesss(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/metadata/songs",
-				"song_hotttnesss");
+	public static double get_song_hotttnesss(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/metadata/songs", "song_hotttnesss");
 	}
 
 	public static String get_title(H5File h5) throws Exception {
@@ -230,18 +211,15 @@ public class HDF5Getters {
 		return get_track_7digitalid(h5, 0);
 	}
 
-	public static int get_track_7digitalid(H5File h5, int songidx)
-			throws Exception {
-		return get_member_int(h5, songidx, "/metadata/songs",
-				"track_7digitalid");
+	public static int get_track_7digitalid(H5File h5, int songidx) throws Exception {
+		return get_member_int(h5, songidx, "/metadata/songs", "track_7digitalid");
 	}
 
 	public static String[] get_similar_artists(H5File h5) throws Exception {
 		return get_similar_artists(h5, 0);
 	}
 
-	public static String[] get_similar_artists(H5File h5, int songidx)
-			throws Exception {
+	public static String[] get_similar_artists(H5File h5, int songidx) throws Exception {
 		return get_array_string(h5, songidx, "metadata", "similar_artists");
 	}
 
@@ -249,8 +227,7 @@ public class HDF5Getters {
 		return get_artist_terms(h5, 0);
 	}
 
-	public static String[] get_artist_terms(H5File h5, int songidx)
-			throws Exception {
+	public static String[] get_artist_terms(H5File h5, int songidx) throws Exception {
 		return get_array_string(h5, songidx, "metadata", "artist_terms");
 	}
 
@@ -258,30 +235,24 @@ public class HDF5Getters {
 		return get_artist_terms_freq(h5, 0);
 	}
 
-	public static double[] get_artist_terms_freq(H5File h5, int songidx)
-			throws Exception {
-		return get_array_double(h5, songidx, "metadata", "artist_terms_freq",
-				1, "idx_artist_terms");
+	public static double[] get_artist_terms_freq(H5File h5, int songidx) throws Exception {
+		return get_array_double(h5, songidx, "metadata", "artist_terms_freq", 1, "idx_artist_terms");
 	}
 
 	public static double[] get_artist_terms_weight(H5File h5) throws Exception {
 		return get_artist_terms_weight(h5, 0);
 	}
 
-	public static double[] get_artist_terms_weight(H5File h5, int songidx)
-			throws Exception {
-		return get_array_double(h5, songidx, "metadata", "artist_terms_weight",
-				1, "idx_artist_terms");
+	public static double[] get_artist_terms_weight(H5File h5, int songidx) throws Exception {
+		return get_array_double(h5, songidx, "metadata", "artist_terms_weight", 1, "idx_artist_terms");
 	}
 
 	public static double get_analysis_sample_rate(H5File h5) throws Exception {
 		return get_analysis_sample_rate(h5, 0);
 	}
 
-	public static double get_analysis_sample_rate(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/analysis/songs",
-				"analysis_sample_rate");
+	public static double get_analysis_sample_rate(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/analysis/songs", "analysis_sample_rate");
 	}
 
 	public static String get_audio_md5(H5File h5) throws Exception {
@@ -296,8 +267,7 @@ public class HDF5Getters {
 		return get_danceability(h5, 0);
 	}
 
-	public static double get_danceability(H5File h5, int songidx)
-			throws Exception {
+	public static double get_danceability(H5File h5, int songidx) throws Exception {
 		return get_member_double(h5, songidx, "/analysis/songs", "danceability");
 	}
 
@@ -313,10 +283,8 @@ public class HDF5Getters {
 		return get_end_of_fade_in(h5, 0);
 	}
 
-	public static double get_end_of_fade_in(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/analysis/songs",
-				"end_of_fade_in");
+	public static double get_end_of_fade_in(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/analysis/songs", "end_of_fade_in");
 	}
 
 	public static double get_energy(H5File h5) throws Exception {
@@ -339,10 +307,8 @@ public class HDF5Getters {
 		return get_key_confidence(h5, 0);
 	}
 
-	public static double get_key_confidence(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/analysis/songs",
-				"key_confidence");
+	public static double get_key_confidence(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/analysis/songs", "key_confidence");
 	}
 
 	public static double get_loudness(H5File h5) throws Exception {
@@ -365,20 +331,16 @@ public class HDF5Getters {
 		return get_mode_confidence(h5, 0);
 	}
 
-	public static double get_mode_confidence(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/analysis/songs",
-				"mode_confidence");
+	public static double get_mode_confidence(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/analysis/songs", "mode_confidence");
 	}
 
 	public static double get_start_of_fade_out(H5File h5) throws Exception {
 		return get_start_of_fade_out(h5, 0);
 	}
 
-	public static double get_start_of_fade_out(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/analysis/songs",
-				"start_of_fade_out");
+	public static double get_start_of_fade_out(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/analysis/songs", "start_of_fade_out");
 	}
 
 	public static double get_tempo(H5File h5) throws Exception {
@@ -393,20 +355,16 @@ public class HDF5Getters {
 		return get_time_signature(h5, 0);
 	}
 
-	public static int get_time_signature(H5File h5, int songidx)
-			throws Exception {
+	public static int get_time_signature(H5File h5, int songidx) throws Exception {
 		return get_member_int(h5, songidx, "/analysis/songs", "time_signature");
 	}
 
-	public static double get_time_signature_confidence(H5File h5)
-			throws Exception {
+	public static double get_time_signature_confidence(H5File h5) throws Exception {
 		return get_time_signature_confidence(h5, 0);
 	}
 
-	public static double get_time_signature_confidence(H5File h5, int songidx)
-			throws Exception {
-		return get_member_double(h5, songidx, "/analysis/songs",
-				"time_signature_confidence");
+	public static double get_time_signature_confidence(H5File h5, int songidx) throws Exception {
+		return get_member_double(h5, songidx, "/analysis/songs", "time_signature_confidence");
 	}
 
 	public static String get_track_id(H5File h5) throws Exception {
@@ -421,8 +379,7 @@ public class HDF5Getters {
 		return get_segments_start(h5, 0);
 	}
 
-	public static double[] get_segments_start(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_segments_start(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "segments_start", 1);
 	}
 
@@ -430,18 +387,15 @@ public class HDF5Getters {
 		return get_segments_confidence(h5, 0);
 	}
 
-	public static double[] get_segments_confidence(H5File h5, int songidx)
-			throws Exception {
-		return get_array_double(h5, songidx, "analysis", "segments_confidence",
-				1);
+	public static double[] get_segments_confidence(H5File h5, int songidx) throws Exception {
+		return get_array_double(h5, songidx, "analysis", "segments_confidence", 1);
 	}
 
 	public static double[] get_segments_pitches(H5File h5) throws Exception {
 		return get_segments_pitches(h5, 0);
 	}
 
-	public static double[] get_segments_pitches(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_segments_pitches(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "segments_pitches", 2);
 	}
 
@@ -449,50 +403,39 @@ public class HDF5Getters {
 		return get_segments_timbre(h5, 0);
 	}
 
-	public static double[] get_segments_timbre(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_segments_timbre(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "segments_timbre", 2);
 	}
 
-	public static double[] get_segments_loudness_max(H5File h5)
-			throws Exception {
+	public static double[] get_segments_loudness_max(H5File h5) throws Exception {
 		return get_segments_loudness_max(h5, 0);
 	}
 
-	public static double[] get_segments_loudness_max(H5File h5, int songidx)
-			throws Exception {
-		return get_array_double(h5, songidx, "analysis",
-				"segments_loudness_max", 1);
+	public static double[] get_segments_loudness_max(H5File h5, int songidx) throws Exception {
+		return get_array_double(h5, songidx, "analysis", "segments_loudness_max", 1);
 	}
 
-	public static double[] get_segments_loudness_max_time(H5File h5)
-			throws Exception {
+	public static double[] get_segments_loudness_max_time(H5File h5) throws Exception {
 		return get_segments_loudness_max_time(h5, 0);
 	}
 
-	public static double[] get_segments_loudness_max_time(H5File h5, int songidx)
-			throws Exception {
-		return get_array_double(h5, songidx, "analysis",
-				"segments_loudness_max_time", 1);
+	public static double[] get_segments_loudness_max_time(H5File h5, int songidx) throws Exception {
+		return get_array_double(h5, songidx, "analysis", "segments_loudness_max_time", 1);
 	}
 
-	public static double[] get_segments_loudness_start(H5File h5)
-			throws Exception {
+	public static double[] get_segments_loudness_start(H5File h5) throws Exception {
 		return get_segments_loudness_start(h5, 0);
 	}
 
-	public static double[] get_segments_loudness_start(H5File h5, int songidx)
-			throws Exception {
-		return get_array_double(h5, songidx, "analysis",
-				"segments_loudness_start", 1);
+	public static double[] get_segments_loudness_start(H5File h5, int songidx) throws Exception {
+		return get_array_double(h5, songidx, "analysis", "segments_loudness_start", 1);
 	}
 
 	public static double[] get_sections_start(H5File h5) throws Exception {
 		return get_sections_start(h5, 0);
 	}
 
-	public static double[] get_sections_start(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_sections_start(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "sections_start", 1);
 	}
 
@@ -500,18 +443,15 @@ public class HDF5Getters {
 		return get_sections_confidence(h5, 0);
 	}
 
-	public static double[] get_sections_confidence(H5File h5, int songidx)
-			throws Exception {
-		return get_array_double(h5, songidx, "analysis", "sections_confidence",
-				1);
+	public static double[] get_sections_confidence(H5File h5, int songidx) throws Exception {
+		return get_array_double(h5, songidx, "analysis", "sections_confidence", 1);
 	}
 
 	public static double[] get_beats_start(H5File h5) throws Exception {
 		return get_beats_start(h5, 0);
 	}
 
-	public static double[] get_beats_start(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_beats_start(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "beats_start", 1);
 	}
 
@@ -519,8 +459,7 @@ public class HDF5Getters {
 		return get_beats_confidence(h5, 0);
 	}
 
-	public static double[] get_beats_confidence(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_beats_confidence(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "beats_confidence", 1);
 	}
 
@@ -528,8 +467,7 @@ public class HDF5Getters {
 		return get_bars_start(h5, 0);
 	}
 
-	public static double[] get_bars_start(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_bars_start(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "bars_start", 1);
 	}
 
@@ -537,8 +475,7 @@ public class HDF5Getters {
 		return get_bars_confidence(h5, 0);
 	}
 
-	public static double[] get_bars_confidence(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_bars_confidence(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "bars_confidence", 1);
 	}
 
@@ -546,8 +483,7 @@ public class HDF5Getters {
 		return get_tatums_start(h5, 0);
 	}
 
-	public static double[] get_tatums_start(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_tatums_start(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "tatums_start", 1);
 	}
 
@@ -555,8 +491,7 @@ public class HDF5Getters {
 		return get_tatums_confidence(h5, 0);
 	}
 
-	public static double[] get_tatums_confidence(H5File h5, int songidx)
-			throws Exception {
+	public static double[] get_tatums_confidence(H5File h5, int songidx) throws Exception {
 		return get_array_double(h5, songidx, "analysis", "tatums_confidence", 1);
 	}
 
@@ -572,8 +507,7 @@ public class HDF5Getters {
 		return get_artist_mbtags(h5, 0);
 	}
 
-	public static String[] get_artist_mbtags(H5File h5, int songidx)
-			throws Exception {
+	public static String[] get_artist_mbtags(H5File h5, int songidx) throws Exception {
 		return get_array_string(h5, songidx, "musicbrainz", "artist_mbtags");
 	}
 
@@ -581,10 +515,8 @@ public class HDF5Getters {
 		return get_artist_mbtags_count(h5, 0);
 	}
 
-	public static int[] get_artist_mbtags_count(H5File h5, int songidx)
-			throws Exception {
-		return get_array_int(h5, songidx, "musicbrainz", "artist_mbtags_count",
-				"idx_artist_mbtags");
+	public static int[] get_artist_mbtags_count(H5File h5, int songidx) throws Exception {
+		return get_array_int(h5, songidx, "musicbrainz", "artist_mbtags_count", "idx_artist_mbtags");
 	}
 
 	/********************************** UTILITY FUNCTIONS ************************************/
@@ -600,8 +532,7 @@ public class HDF5Getters {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static int get_member_int(H5File h5, int songidx, String table,
-			String member) throws Exception {
+	public static int get_member_int(H5File h5, int songidx, String table, String member) throws Exception {
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(table);
 		analysis.init();
 		int wantedMember = find(analysis.getMemberNames(), member);
@@ -612,8 +543,7 @@ public class HDF5Getters {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static double get_member_double(H5File h5, int songidx,
-			String table, String member) throws Exception {
+	public static double get_member_double(H5File h5, int songidx, String table, String member) throws Exception {
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(table);
 		analysis.init();
 		int wantedMember = find(analysis.getMemberNames(), member);
@@ -624,8 +554,7 @@ public class HDF5Getters {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static String get_member_string(H5File h5, int songidx,
-			String table, String member) throws Exception {
+	public static String get_member_string(H5File h5, int songidx, String table, String member) throws Exception {
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(table);
 		analysis.init();
 		int wantedMember = find(analysis.getMemberNames(), member);
@@ -635,15 +564,14 @@ public class HDF5Getters {
 		return col[songidx];
 	}
 
-	public static double[] get_array_double(H5File h5, int songidx,
-			String group, String arrayname, int ndims) throws Exception {
+	public static double[] get_array_double(H5File h5, int songidx, String group, String arrayname, int ndims)
+			throws Exception {
 		return get_array_double(h5, songidx, group, arrayname, ndims, "");
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static double[] get_array_double(H5File h5, int songidx,
-			String group, String arrayname, int ndims, String idxname)
-			throws Exception {
+	public static double[] get_array_double(H5File h5, int songidx, String group, String arrayname, int ndims,
+			String idxname) throws Exception {
 		// index
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(group + "/songs");
 		analysis.init();
@@ -683,14 +611,13 @@ public class HDF5Getters {
 		return null;
 	}
 
-	public static int[] get_array_int(H5File h5, int songidx, String group,
-			String arrayname) throws Exception {
+	public static int[] get_array_int(H5File h5, int songidx, String group, String arrayname) throws Exception {
 		return get_array_int(h5, songidx, group, arrayname, "");
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static int[] get_array_int(H5File h5, int songidx, String group,
-			String arrayname, String idxname) throws Exception {
+	public static int[] get_array_int(H5File h5, int songidx, String group, String arrayname, String idxname)
+			throws Exception {
 		// index
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(group + "/songs");
 		analysis.init();
@@ -715,8 +642,7 @@ public class HDF5Getters {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static String[] get_array_string(H5File h5, int songidx,
-			String group, String arrayname) throws Exception {
+	public static String[] get_array_string(H5File h5, int songidx, String group, String arrayname) throws Exception {
 		// index
 		H5CompoundDS analysis = (H5CompoundDS) h5.get(group + "/songs");
 		analysis.init();
@@ -744,8 +670,7 @@ public class HDF5Getters {
 		if (args.length < 1) {
 			System.out.println("file 'hdf5_getters.java'");
 			System.out.println("T. Bertin-Mahieux (2010) tb2332@columbia.edu");
-			System.out
-					.println("a util static class to read HDF5 song files from");
+			System.out.println("a util static class to read HDF5 song files from");
 			System.out.println("the Million Songs Dataset project");
 			System.out.println("demo:");
 			System.out.println("   see README.txt to compile");
@@ -764,37 +689,29 @@ public class HDF5Getters {
 			String[] resS;
 			int[] resI;
 			// metadata
-			System.out.println("artist familiarity: "
-					+ get_artist_familiarity(h5));
-			System.out.println("artist hotttnesss: "
-					+ get_artist_hotttnesss(h5));
+			System.out.println("artist familiarity: " + get_artist_familiarity(h5));
+			System.out.println("artist hotttnesss: " + get_artist_hotttnesss(h5));
 			System.out.println("artist id: " + get_artist_id(h5));
 			System.out.println("artist mbid: " + get_artist_mbid(h5));
 			System.out.println("artist playmeid: " + get_artist_playmeid(h5));
-			System.out.println("artist 7digitalid: "
-					+ get_artist_7digitalid(h5));
+			System.out.println("artist 7digitalid: " + get_artist_7digitalid(h5));
 			System.out.println("artist latitude: " + get_artist_latitude(h5));
 			System.out.println("artist longitude: " + get_artist_longitude(h5));
 			System.out.println("artist location: " + get_artist_location(h5));
 			System.out.println("artist name: " + get_artist_name(h5));
 			System.out.println("release: " + get_release(h5));
-			System.out.println("release 7digitalid: "
-					+ get_release_7digitalid(h5));
+			System.out.println("release 7digitalid: " + get_release_7digitalid(h5));
 			System.out.println("song hotttnesss: " + get_song_hotttnesss(h5));
 			System.out.println("title: " + get_title(h5));
 			System.out.println("track 7digitalid: " + get_track_7digitalid(h5));
 			resS = get_similar_artists(h5);
-			System.out.println("similar artists, length: " + resS.length
-					+ ", elem 2: " + resS[20]);
+			System.out.println("similar artists, length: " + resS.length + ", elem 2: " + resS[20]);
 			resS = get_artist_terms(h5);
-			System.out.println("artists terms, length: " + resS.length
-					+ ", elem 0: " + resS[0]);
+			System.out.println("artists terms, length: " + resS.length + ", elem 0: " + resS[0]);
 			res = get_artist_terms_freq(h5);
-			System.out.println("artists terms freq, length: " + res.length
-					+ ", elem 0: " + res[0]);
+			System.out.println("artists terms freq, length: " + res.length + ", elem 0: " + res[0]);
 			res = get_artist_terms_weight(h5);
-			System.out.println("artists terms weight, length: " + res.length
-					+ ", elem 0: " + res[0]);
+			System.out.println("artists terms weight, length: " + res.length + ", elem 0: " + res[0]);
 			// analysis
 			System.out.println("duration: " + get_duration(h5));
 			System.out.println("end_of_fade_in: " + get_end_of_fade_in(h5));
@@ -803,70 +720,50 @@ public class HDF5Getters {
 			System.out.println("loudness: " + get_loudness(h5));
 			System.out.println("mode: " + get_mode(h5));
 			System.out.println("mode confidence: " + get_mode_confidence(h5));
-			System.out.println("start of fade out: "
-					+ get_start_of_fade_out(h5));
+			System.out.println("start of fade out: " + get_start_of_fade_out(h5));
 			System.out.println("tempo: " + get_tempo(h5));
 			System.out.println("time signature: " + get_time_signature(h5));
-			System.out.println("time signature confidence: "
-					+ get_time_signature_confidence(h5));
+			System.out.println("time signature confidence: " + get_time_signature_confidence(h5));
 			res = get_segments_start(h5);
-			System.out.println("segments start, length: " + res.length
-					+ ", elem 20: " + res[20]);
+			System.out.println("segments start, length: " + res.length + ", elem 20: " + res[20]);
 			res = get_segments_confidence(h5);
-			System.out.println("segments confidence, length: " + res.length
-					+ ", elem 20: " + res[20]);
+			System.out.println("segments confidence, length: " + res.length + ", elem 20: " + res[20]);
 			res = get_segments_pitches(h5);
-			System.out.println("segments pitches, length: " + res.length
-					+ ", elem 20: " + res[20]);
+			System.out.println("segments pitches, length: " + res.length + ", elem 20: " + res[20]);
 			res = get_segments_timbre(h5);
-			System.out.println("segments timbre, length: " + res.length
-					+ ", elem 20: " + res[20]);
+			System.out.println("segments timbre, length: " + res.length + ", elem 20: " + res[20]);
 			res = get_segments_loudness_max(h5);
-			System.out.println("segments loudness max, length: " + res.length
-					+ ", elem 20: " + res[20]);
+			System.out.println("segments loudness max, length: " + res.length + ", elem 20: " + res[20]);
 			res = get_segments_loudness_max_time(h5);
-			System.out.println("segments loudness max time, length: "
-					+ res.length + ", elem 20: " + res[20]);
+			System.out.println("segments loudness max time, length: " + res.length + ", elem 20: " + res[20]);
 			res = get_segments_loudness_start(h5);
-			System.out.println("segments loudness start, length: " + res.length
-					+ ", elem 20: " + res[20]);
+			System.out.println("segments loudness start, length: " + res.length + ", elem 20: " + res[20]);
 			res = get_sections_start(h5);
-			System.out.println("sections start, length: " + res.length
-					+ ", elem 1: " + res[1]);
+			System.out.println("sections start, length: " + res.length + ", elem 1: " + res[1]);
 			res = get_sections_confidence(h5);
-			System.out.println("sections confidence, length: " + res.length
-					+ ", elem 1: " + res[1]);
+			System.out.println("sections confidence, length: " + res.length + ", elem 1: " + res[1]);
 			res = get_beats_start(h5);
-			System.out.println("beats start, length: " + res.length
-					+ ", elem 1: " + res[1]);
+			System.out.println("beats start, length: " + res.length + ", elem 1: " + res[1]);
 			res = get_beats_confidence(h5);
-			System.out.println("beats confidence, length: " + res.length
-					+ ", elem 1: " + res[1]);
+			System.out.println("beats confidence, length: " + res.length + ", elem 1: " + res[1]);
 			res = get_bars_start(h5);
-			System.out.println("bars start, length: " + res.length
-					+ ", elem 1: " + res[1]);
+			System.out.println("bars start, length: " + res.length + ", elem 1: " + res[1]);
 			res = get_bars_confidence(h5);
-			System.out.println("bars confidence, length: " + res.length
-					+ ", elem 1: " + res[1]);
+			System.out.println("bars confidence, length: " + res.length + ", elem 1: " + res[1]);
 			res = get_tatums_start(h5);
-			System.out.println("tatums start, length: " + res.length
-					+ ", elem 3: " + res[3]);
+			System.out.println("tatums start, length: " + res.length + ", elem 3: " + res[3]);
 			res = get_tatums_confidence(h5);
-			System.out.println("tatums confidence, length: " + res.length
-					+ ", elem 3: " + res[3]);
+			System.out.println("tatums confidence, length: " + res.length + ", elem 3: " + res[3]);
 			// musicbrainz
 			System.out.println("year: " + get_year(h5));
 			resS = get_artist_mbtags(h5);
 			resI = get_artist_mbtags_count(h5);
 			if (resS.length > 0) {
-				System.out.println("artists mbtags, length: " + resS.length
-						+ ", elem 0: " + resS[0]);
-				System.out.println("artists mbtags count, length: "
-						+ resI.length + ", elem 0: " + resI[0]);
+				System.out.println("artists mbtags, length: " + resS.length + ", elem 0: " + resS[0]);
+				System.out.println("artists mbtags count, length: " + resI.length + ", elem 0: " + resI[0]);
 			} else {
 				System.out.println("artists mbtags, length: " + resS.length);
-				System.out.println("artists mbtags count, length: "
-						+ resI.length);
+				System.out.println("artists mbtags count, length: " + resI.length);
 			}
 		} catch (Exception e) {
 			System.out.println("something went wrong:");

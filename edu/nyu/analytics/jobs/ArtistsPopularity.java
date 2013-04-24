@@ -146,7 +146,7 @@ public class ArtistsPopularity {
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 4) {
-			System.err.println("Usage: SongFrequency <input path> <temp path> <temp-output path> <output path>");
+			System.err.println("Usage: ArtistPopularity <input path> <temp path> <temp-output path> <output path>");
 			System.exit(-1);
 		}
 
@@ -172,25 +172,24 @@ public class ArtistsPopularity {
 		}
 		reader1.close();
 
-		// Configuration conf = new Configuration();
-		// Job job = new Job(conf, "first");
-		// job.setJarByClass(SongFrequency.class);
-		//
-		// FileInputFormat.addInputPath(job, new Path(args[0]));
-		// FileOutputFormat.setOutputPath(job, new Path(args[1]));
-		//
-		// job.setMapperClass(SongFrequencyMapper.class);
-		// job.setReducerClass(SongFrequencyReducer.class);
-		//
-		// job.setOutputKeyClass(Text.class);
-		// job.setOutputValueClass(IntWritable.class);
-		// job.waitForCompletion(true);
-		//
-		// System.out.println("First Job Completed.....Starting Second Job");
-		// System.out.println("Job completion was successful: "
-		// + job.isSuccessful());
+		Configuration conf = new Configuration();
+		Job job = new Job(conf, "first");
+		job.setJarByClass(SongFrequency.class);
 
-		if (true) {
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+		job.setMapperClass(SongFrequencyMapper.class);
+		job.setReducerClass(SongFrequencyReducer.class);
+
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
+		job.waitForCompletion(true);
+
+		System.out.println("First Job Completed.....Starting Second Job");
+		System.out.println("Job completion was successful: " + job.isSuccessful());
+
+		if (job.isSuccessful()) {
 			System.out.println("Second job begins now..");
 
 			Configuration conf2 = new Configuration();
