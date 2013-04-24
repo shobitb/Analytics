@@ -1,5 +1,9 @@
-Analytics
+Realtime and Big Data Analytics
 =========
+CSCI-GA.3033-008
+NYU Courant Institute of Mathematical Sciences
+Computer Science Department, Graduate Division
+Spring 2013
 
 Technologies
 -----------
