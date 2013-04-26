@@ -15,3 +15,11 @@
 /EnergyDistribution.class
 /EnergyDistribution$ArtistsPopularityMapper.class
 /EnergyDistribution$EnergyDistributionMapper.class
+/SortClusters$SortClustersMapper.class
+/SortClusters$SortClustersReducer.class
+/SortClusters.class
+/UserArtistFrequency$UserArtistFrequencyMapper.class
+/UserArtistFrequency$UserArtistFrequencyReducer.class
+/UserArtistFrequency.class
+/SongFrequencyMapper1.class
+/SongFrequencyReducer.class

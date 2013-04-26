@@ -3,6 +3,11 @@ package edu.nyu.analytics.jobs;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,18 +27,22 @@ public class SongFrequency {
 
 	static HashSet<String> ignoreSongs = new HashSet<String>();
 	static Map<String, String> mapOfSongIDVsTrackID = new HashMap<String, String>();
+	static Statement statement;
+	static Connection connection;
+	static PreparedStatement prep;
 
-	static class SongFrequencyMapper extends
-			Mapper<LongWritable, Text, Text, IntWritable> {
+	static class SongFrequencyMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
-		public void map(LongWritable key, Text value, Context context)
-				throws IOException, InterruptedException {
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
 			String line = value.toString();
 			String songId = null;
+			String userId = null;
 
-			if (line.split(",").length >= 2)
+			if (line.split(",").length >= 2) {
 				songId = line.split(",")[1];
+				userId = line.split(",")[0];
+			}
 
 			if (line.split(",").length >= 2 && !ignoreSongs.contains(songId)) {
 				String trackId = "";
@@ -41,17 +50,27 @@ public class SongFrequency {
 					trackId = mapOfSongIDVsTrackID.get(songId);
 				}
 				String frequency = line.split(",")[2];
-				context.write(new Text(trackId),
-						new IntWritable(Integer.parseInt(frequency)));
+
+				try {
+					
+					prep.setString(1, userId);
+					prep.setString(2, trackId);
+					prep.setInt(3, Integer.parseInt(frequency));
+					prep.addBatch();
+					
+				} catch (NumberFormatException | SQLException e) {
+					e.printStackTrace();
+				}
+
+				context.write(new Text(trackId), new IntWritable(Integer.parseInt(frequency)));
 			}
 		}
 	}
 
-	static class SongFrequencyReducer extends
-			Reducer<Text, IntWritable, Text, IntWritable> {
+	static class SongFrequencyReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
-		public void reduce(Text key, Iterable<IntWritable> values,
-				Context context) throws IOException, InterruptedException {
+		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException,
+				InterruptedException {
 
 			int totalFreq = 0;
 			for (IntWritable value : values) {
@@ -61,11 +80,9 @@ public class SongFrequency {
 		}
 	}
 
-	static class SongFrequencyMapper1 extends
-			Mapper<LongWritable, Text, IntWritable, Text> {
+	static class SongFrequencyMapper1 extends Mapper<LongWritable, Text, IntWritable, Text> {
 
-		public void map(LongWritable key, Text value, Context context)
-				throws IOException, InterruptedException {
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
 			String line = value.toString();
 			String trackId = null;
@@ -81,8 +98,7 @@ public class SongFrequency {
 	public static void main(String[] args) throws Exception {
 
 		if (args.length != 3) {
-			System.err
-					.println("Usage: SongFrequency <input path> <temp path> <output path>");
+			System.err.println("Usage: SongFrequency <input path> <temp path> <output path>");
 			System.exit(-1);
 		}
 
@@ -94,15 +110,19 @@ public class SongFrequency {
 		}
 		reader.close();
 
-		BufferedReader reader1 = new BufferedReader(
-				new FileReader(
-						"/Users/hiral/Documents/RealTimeBigData/Data/allTrackEchonestId.txt"));
+		BufferedReader reader1 = new BufferedReader(new FileReader(
+				"/Users/hiral/Documents/RealTimeBigData/Data/allTrackEchonestId.txt"));
 		String line1 = "";
 		while ((line1 = reader1.readLine()) != null) {
 			String[] arr = line1.split(",");
 			mapOfSongIDVsTrackID.put(arr[1], arr[0]);
 		}
 		reader1.close();
+
+		statement = dbConnect();
+		statement.executeUpdate("drop table if exists metadata;");
+		statement.executeUpdate("create table metadata (userid, trackid, frequency);");
+		prep = connection.prepareStatement("insert into metadata values (?, ?, ?);");
 
 		Configuration conf = new Configuration();
 		Job job = new Job(conf, "first");
@@ -118,18 +138,23 @@ public class SongFrequency {
 		job.setOutputValueClass(IntWritable.class);
 		job.waitForCompletion(true);
 
+		connection.setAutoCommit(false);
+		prep.executeBatch();
+		connection.setAutoCommit(true);
+
+		connection.close();
+		
 		System.out.println("First Job Completed.....Starting Second Job");
-		System.out.println("Job completion was successful: "  +job.isSuccessful());
+		System.out.println("Job completion was successful: " + job.isSuccessful());
 
 		if (job.isSuccessful()) {
 			System.out.println("Second job begins now..");
-			
+
 			Configuration conf2 = new Configuration();
 			Job job2 = new Job(conf2, "second");
 			job2.setJarByClass(SongFrequency.class);
 
-			FileInputFormat.addInputPath(job2, new Path(args[1]
-					+ "/part-r-00000"));
+			FileInputFormat.addInputPath(job2, new Path(args[1] + "/part-r-00000"));
 			FileOutputFormat.setOutputPath(job2, new Path(args[2]));
 
 			job2.setMapperClass(SongFrequencyMapper1.class);
@@ -138,10 +163,29 @@ public class SongFrequency {
 			job2.setOutputKeyClass(IntWritable.class);
 			job2.setOutputValueClass(Text.class);
 			job2.waitForCompletion(true);
-			
+
 			System.out.println("Second job completed..");
-			System.out.println("Job completion was successful: "  +job2.isSuccessful());
+			System.out.println("Job completion was successful: " + job2.isSuccessful());
 		}
+	}
+
+	public static Statement dbConnect() throws ClassNotFoundException {
+
+		Class.forName("org.sqlite.JDBC");
+
+		try {
+			// create a database connection
+			connection = DriverManager
+					.getConnection("jdbc:sqlite:/Users/hiral/Documents/RealTimeBigData/Data/song_frequency.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+			return statement;
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		}
+		return null;
 	}
 
 }
