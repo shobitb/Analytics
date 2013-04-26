@@ -34,17 +34,10 @@ public class Main {
 		statement = dbConnect();
 		function();
 		for (String s : arr) {
-//			String tmp = "TRWIPEU128E078997D";
 			Get g = new Get(Bytes.toBytes(s));
 			Result rs = table_songFrequency.get(g);
 
 			for (KeyValue kv : rs.raw()) {
-				// System.out.println("1 --> " + new String(kv.getRow()) + " ");
-				// System.out.println("2 --> " + new String(kv.getFamily()) +
-				// ":");
-				// System.out.println("3 --> " + new String(kv.getQualifier()) +
-				// " ");
-				// System.out.println("4 --> " + kv.getTimestamp() + " ");
 				System.out.println("main thing --> " + s + " --> " + Bytes.toInt(kv.getValue()));
 			}
 		}

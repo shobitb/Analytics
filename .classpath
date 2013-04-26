@@ -9,25 +9,8 @@
 	<classpathentry exported="true" kind="lib" path="/Users/hiral/hadoop/hadoop-1.0.4/hadoop-minicluster-1.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/hiral/hadoop/hadoop-1.0.4/hadoop-test-1.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/hiral/hadoop/hadoop-1.0.4/hadoop-tools-1.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf5/jhdfview.jar"/>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/fits.jar"/>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/jhdf.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/hiral/Documents/RealTimeBigData/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/jhdf4obj.jar"/>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/jhdf5.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/hiral/Documents/RealTimeBigData/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/jhdf5obj.jar"/>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/jhdfobj.jar"/>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/jhdfview.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/junit.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/netcdf.jar"/>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/ext/fitsobj.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/hdf-java/lib/ext/nc2obj.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/commons-io-2.4/commons-io-2.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/commons-io-2.4/commons-io-2.4-sources.jar"/>
@@ -101,10 +84,17 @@
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/zookeeper-3.4.5 2/zookeeper-3.4.5.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/protobuf-java-2.2.0.jar"/>
 	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/sqlite-jdbc-3.7.2.jar"/>
-	<classpathentry kind="lib" path="/Users/hiral/Documents/RealTimeBigData/jhdf5.jar">
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/junit.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/fits.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/jhdf.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/jhdf4obj.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/jhdf5.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/hiral/Documents/RealTimeBigData/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/hiral/Desktop/hdf-java/lib/macosx"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/jhdf5obj.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/jhdfobj.jar"/>
+	<classpathentry kind="lib" path="/Users/hiral/Desktop/hdf-java/lib/jhdfview.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

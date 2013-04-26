@@ -53,16 +53,12 @@ public class ArtistsPopularity {
 
 			if (line.split(",").length >= 2 && !ignoreSongs.contains(songId)) {
 				String trackId = "";
-				if (songId.equals("SONVJUL12A6701FB7A")) {
-					System.out.println("CHECKKKK --> " + mapOfSongIDVsTrackID.containsKey(songId));
-				}
+				
 				if (mapOfSongIDVsTrackID.containsKey(songId)) {
 					trackId = mapOfSongIDVsTrackID.get(songId);
 				}
 
-				if (songId.equals("SONVJUL12A6701FB7A")) {
-					System.out.println("Checkk --> " + trackId);
-				}
+				
 				String frequency = line.split(",")[2];
 				context.write(new Text(trackId), new IntWritable(Integer.parseInt(frequency)));
 			}
@@ -79,9 +75,7 @@ public class ArtistsPopularity {
 				totalFreq = totalFreq + value.get();
 			}
 
-			if (key.toString().equals("TRWIPEU128E078997D")) {
-				System.out.println("OH YES " + totalFreq);
-			}
+		
 			Put p = new Put(key.getBytes());
 			p.add(Bytes.toBytes("listens"), Bytes.toBytes("someQualifier"), Bytes.toBytes(totalFreq));
 			table_songFrequency.put(p);
