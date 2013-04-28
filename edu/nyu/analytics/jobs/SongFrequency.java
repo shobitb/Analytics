@@ -121,7 +121,7 @@ public class SongFrequency {
 
 		statement = dbConnect();
 		statement.executeUpdate("drop table if exists metadata;");
-		statement.executeUpdate("create table metadata (userid, trackid, frequency);");
+		statement.executeUpdate("create table metadata (\"userid\" TEXT NOT NULL, \"trackid\" TEXT NOT NULL, \"frequency\" TEXT);");
 		prep = connection.prepareStatement("insert into metadata values (?, ?, ?);");
 
 		Configuration conf = new Configuration();
