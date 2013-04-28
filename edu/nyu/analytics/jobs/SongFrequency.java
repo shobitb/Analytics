@@ -3,11 +3,6 @@ package edu.nyu.analytics.jobs;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -27,9 +22,6 @@ public class SongFrequency {
 
 	static HashSet<String> ignoreSongs = new HashSet<String>();
 	static Map<String, String> mapOfSongIDVsTrackID = new HashMap<String, String>();
-	static Statement statement;
-	static Connection connection;
-	static PreparedStatement prep;
 
 	static class SongFrequencyMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
@@ -37,11 +29,9 @@ public class SongFrequency {
 
 			String line = value.toString();
 			String songId = null;
-			String userId = null;
 
 			if (line.split(",").length >= 2) {
 				songId = line.split(",")[1];
-				userId = line.split(",")[0];
 			}
 
 			if (line.split(",").length >= 2 && !ignoreSongs.contains(songId)) {
@@ -50,17 +40,6 @@ public class SongFrequency {
 					trackId = mapOfSongIDVsTrackID.get(songId);
 				}
 				String frequency = line.split(",")[2];
-
-				try {
-					
-					prep.setString(1, userId);
-					prep.setString(2, trackId);
-					prep.setInt(3, Integer.parseInt(frequency));
-					prep.addBatch();
-					
-				} catch (NumberFormatException | SQLException e) {
-					e.printStackTrace();
-				}
 
 				context.write(new Text(trackId), new IntWritable(Integer.parseInt(frequency)));
 			}
@@ -119,11 +98,6 @@ public class SongFrequency {
 		}
 		reader1.close();
 
-		statement = dbConnect();
-		statement.executeUpdate("drop table if exists metadata;");
-		statement.executeUpdate("create table metadata (\"userid\" TEXT NOT NULL, \"trackid\" TEXT NOT NULL, \"frequency\" TEXT);");
-		prep = connection.prepareStatement("insert into metadata values (?, ?, ?);");
-
 		Configuration conf = new Configuration();
 		Job job = new Job(conf, "first");
 		job.setJarByClass(SongFrequency.class);
@@ -137,12 +111,6 @@ public class SongFrequency {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		job.waitForCompletion(true);
-
-		connection.setAutoCommit(false);
-		prep.executeBatch();
-		connection.setAutoCommit(true);
-
-		connection.close();
 		
 		System.out.println("First Job Completed.....Starting Second Job");
 		System.out.println("Job completion was successful: " + job.isSuccessful());
@@ -169,23 +137,5 @@ public class SongFrequency {
 		}
 	}
 
-	public static Statement dbConnect() throws ClassNotFoundException {
-
-		Class.forName("org.sqlite.JDBC");
-
-		try {
-			// create a database connection
-			connection = DriverManager
-					.getConnection("jdbc:sqlite:/Users/hiral/Documents/RealTimeBigData/Data/song_frequency.db");
-			Statement statement = connection.createStatement();
-			statement.setQueryTimeout(30); // set timeout to 30 sec.
-			return statement;
-		} catch (SQLException e) {
-			// if the error message is "out of memory",
-			// it probably means no database file is found
-			System.err.println(e.getMessage());
-		}
-		return null;
-	}
 
 }

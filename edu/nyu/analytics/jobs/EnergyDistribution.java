@@ -30,7 +30,7 @@ public class EnergyDistribution {
 	static Configuration config = HBaseConfiguration.create();
 	static HTable table_energyDistribution;
 	static PreparedStatement prep;
-	static HashMap<String, ArrayList<Integer>> map = new HashMap<String, ArrayList<Integer>>();
+	static HashMap<Artist, ArrayList<Integer>> map = new HashMap<Artist, ArrayList<Integer>>();
 
 	static class EnergyDistributionMapper extends Mapper<LongWritable, Text, Text, Text> {
 
@@ -45,14 +45,17 @@ public class EnergyDistribution {
 
 				h5 = new H5File(filePath, H5File.READ);
 				String artistid = HDF5Getters.get_artist_id(h5);
+				String name = HDF5Getters.get_artist_name(h5);
+				
+				Artist artist = new Artist(artistid, name);
 
-				if (!map.containsKey(artistid)) {
+				if (!map.containsKey(artist)) {
 					ArrayList<Integer> list = new ArrayList<Integer>(10);
 					
 					for(int i=0;i<10;i++)
 						list.add(0);
 					
-					map.put(artistid, list);
+					map.put(artist, list);
 				}
 
 				double energy = HDF5Getters.get_song_hotttnesss(h5);
@@ -62,12 +65,12 @@ public class EnergyDistribution {
 
 					int col = (int) (temp / 11.0);
 
-					ArrayList<Integer> list = map.get(artistid);
+					ArrayList<Integer> list = map.get(artist);
 					int t = list.get(col);
 
 					t++;
 					list.set(col, t);
-					map.put(artistid, list);
+					map.put(artist, list);
 
 				}
 
@@ -110,13 +113,16 @@ public class EnergyDistribution {
 				.getConnection("jdbc:sqlite:/Users/hiral/Documents/RealTimeBigData/Data/artist_energy.db");
 		stat = conn.createStatement();
 		stat.executeUpdate("drop table if exists artistenergy;");
-		stat.executeUpdate("CREATE TABLE artistenergy ( \"artist_id\" TEXT NOT NULL, \"0\" TEXT, \"1\" TEXT, "
+		stat.executeUpdate("CREATE TABLE artistenergy ( \"artist_id\" TEXT NOT NULL, \"artist_name\" TEXT, \"0\" TEXT, \"1\" TEXT, "
 				+ "\"2\" TEXT, \"3\" TEXT, \"4\" TEXT, \"5\" TEXT, \"6\" TEXT, \"7\" TEXT, \"8\" TEXT, \"9\" TEXT );");
-		prep = conn.prepareStatement("insert into artistenergy values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+		prep = conn.prepareStatement("insert into artistenergy values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 		
-		for(Entry<String, ArrayList<Integer>> entry : map.entrySet()) {
-			prep.setString(1, entry.getKey());
-			int k = 2;
+		for(Entry<Artist, ArrayList<Integer>> entry : map.entrySet()) {
+			String id = entry.getKey().artist_id;
+			String name = entry.getKey().arist_name;
+			prep.setString(1, id);
+			prep.setString(2, name);
+			int k = 3;
 			for(int i : entry.getValue()) {
 				prep.setInt(k, i);
 				k++;
