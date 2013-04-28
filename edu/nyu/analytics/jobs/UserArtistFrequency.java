@@ -43,9 +43,10 @@ public class UserArtistFrequency {
 				}
 			}
 			for (Map.Entry<String, Float> entry : tmp.entrySet()) {
-				line = line + entry.getKey() + "," + entry.getValue() + "\t";
+				line = entry.getKey() + "," + entry.getValue();
+				context.write(key, new Text(line));
 			}
-			context.write(key, new Text(line));
+			
 		}
 	}
 
