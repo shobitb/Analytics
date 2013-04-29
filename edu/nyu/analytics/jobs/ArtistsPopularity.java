@@ -53,12 +53,11 @@ public class ArtistsPopularity {
 
 			if (line.split(",").length >= 2 && !ignoreSongs.contains(songId)) {
 				String trackId = "";
-				
+
 				if (mapOfSongIDVsTrackID.containsKey(songId)) {
 					trackId = mapOfSongIDVsTrackID.get(songId);
 				}
 
-				
 				String frequency = line.split(",")[2];
 				context.write(new Text(trackId), new IntWritable(Integer.parseInt(frequency)));
 			}
@@ -67,15 +66,13 @@ public class ArtistsPopularity {
 
 	static class SongFrequencyReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
-		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException,
-				InterruptedException {
+		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 
 			int totalFreq = 0;
 			for (IntWritable value : values) {
 				totalFreq = totalFreq + value.get();
 			}
 
-		
 			Put p = new Put(key.getBytes());
 			p.add(Bytes.toBytes("listens"), Bytes.toBytes("someQualifier"), Bytes.toBytes(totalFreq));
 			table_songFrequency.put(p);
@@ -149,16 +146,14 @@ public class ArtistsPopularity {
 
 		statement = dbConnect();
 
-		BufferedReader reader = new BufferedReader(new FileReader(
-				"/Users/hiral/Documents/RealTimeBigData/Data/ignore.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader("/Users/hiral/Documents/RealTimeBigData/Data/ignore.txt"));
 		String line = "";
 		while ((line = reader.readLine()) != null) {
 			ignoreSongs.add(line);
 		}
 		reader.close();
 
-		BufferedReader reader1 = new BufferedReader(new FileReader(
-				"/Users/hiral/Documents/RealTimeBigData/Data/allTrackEchonestId.txt"));
+		BufferedReader reader1 = new BufferedReader(new FileReader("/Users/hiral/Documents/RealTimeBigData/Data/allTrackEchonestId.txt"));
 		String line1 = "";
 		while ((line1 = reader1.readLine()) != null) {
 			String[] arr = line1.split(",");
@@ -215,8 +210,7 @@ public class ArtistsPopularity {
 
 		try {
 			// create a database connection
-			connection = DriverManager
-					.getConnection("jdbc:sqlite:/Users/hiral/Documents/RealTimeBigData/Data/track_metadata.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:/Users/hiral/Documents/RealTimeBigData/Data/track_metadata.db");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 			return statement;
