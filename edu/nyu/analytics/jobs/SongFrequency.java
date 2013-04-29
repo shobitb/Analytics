@@ -126,7 +126,6 @@ public class SongFrequency {
 			FileOutputFormat.setOutputPath(job2, new Path(args[2]));
 
 			job2.setMapperClass(SongFrequencyMapper1.class);
-			// job2.setReducerClass(SongFrequencyReducer.class);
 
 			job2.setOutputKeyClass(IntWritable.class);
 			job2.setOutputValueClass(Text.class);
