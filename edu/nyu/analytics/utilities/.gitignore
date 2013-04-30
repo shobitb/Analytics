@@ -1,3 +1,7 @@
 /SeqFileCreator.class
 /SeqFileCreatorHelper.class
 /SeqFileReader.class
+/ArtistSimilarityHelper.class
+/CollabFilteringHelper.class
+/SimilarArtist.class
+/SimilarArtists.class
