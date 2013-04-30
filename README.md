@@ -20,5 +20,5 @@ We try to answer the following from the Million Song Dataset:
 1. What's the most listened-to song? (100% Completed)
 2. Who's the most listened-to artist? (100% Completed)
 3. What's an artist's top songs? (100% Completed)
-4. Plot a graph of the artist's song energies (0 - 100) vs. number of songs. (20% Completed)
-5. What makes a song famous (after creating clusters of users based on their listens using and song metadata) (60% Completed)
+4. Plot a graph of the artist's song energies (0 - 100) vs. number of songs. (100% Completed)
+5. What are an artist's similar artists? (100% Completed)

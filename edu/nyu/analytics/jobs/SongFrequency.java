@@ -48,8 +48,7 @@ public class SongFrequency {
 
 	static class SongFrequencyReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
-		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException,
-				InterruptedException {
+		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 
 			int totalFreq = 0;
 			for (IntWritable value : values) {
@@ -81,16 +80,14 @@ public class SongFrequency {
 			System.exit(-1);
 		}
 
-		BufferedReader reader = new BufferedReader(new FileReader(
-				"/Users/hiral/Documents/RealTimeBigData/Data/ignore.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader("/home/shobit/development/big-data-project/subsets/ignore.txt"));
 		String line = "";
 		while ((line = reader.readLine()) != null) {
 			ignoreSongs.add(line);
 		}
 		reader.close();
 
-		BufferedReader reader1 = new BufferedReader(new FileReader(
-				"/Users/hiral/Documents/RealTimeBigData/Data/allTrackEchonestId.txt"));
+		BufferedReader reader1 = new BufferedReader(new FileReader("/home/shobit/development/big-data-project/subsets/track_song_name.txt"));
 		String line1 = "";
 		while ((line1 = reader1.readLine()) != null) {
 			String[] arr = line1.split(",");
@@ -111,7 +108,7 @@ public class SongFrequency {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		job.waitForCompletion(true);
-		
+
 		System.out.println("First Job Completed.....Starting Second Job");
 		System.out.println("Job completion was successful: " + job.isSuccessful());
 
@@ -135,6 +132,5 @@ public class SongFrequency {
 			System.out.println("Job completion was successful: " + job2.isSuccessful());
 		}
 	}
-
 
 }

@@ -90,8 +90,6 @@ public class EnergyDistribution {
 			System.exit(-1);
 		}
 
-		
-
 		Configuration conf = new Configuration();
 		Job job = new Job(conf, "first");
 		job.setJarByClass(EnergyDistribution.class);

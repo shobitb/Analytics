@@ -1,25 +1,18 @@
 package edu.nyu.analytics.utilities;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
+import org.apache.commons.math.stat.clustering.Cluster;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.SequenceFile;
-import org.apache.mahout.clustering.classify.WeightedVectorWritable;
-import org.apache.mahout.common.Pair;
-import org.apache.mahout.common.iterator.sequencefile.PathFilters;
-import org.apache.mahout.common.iterator.sequencefile.PathType;
-import org.apache.mahout.common.iterator.sequencefile.SequenceFileDirIterable;
-import org.apache.mahout.math.NamedVector;
-import org.apache.mahout.math.VectorWritable;
+import org.apache.mahout.clustering.iterator.ClusterWritable;
+import org.apache.mahout.clustering.kmeans.Kluster;
 
 public class SeqFileReader {
 
@@ -33,18 +26,18 @@ public class SeqFileReader {
 			long i = 0;
 			Configuration conf = new Configuration();
 			FileSystem fs = FileSystem.get(conf);
-			File pointsFolder = new File("/home/shobit/development/big-data-project/cluster/clusteredPoints");
+			File pointsFolder = new File("/home/shobit/development/big-data-project/subsets/final-c");
 			File files[] = pointsFolder.listFiles();
-			bw = new BufferedWriter(new FileWriter("/home/shobit/development/big-data-project/cluster/mapReduceInput", true));
+			bw = new BufferedWriter(new FileWriter("/home/shobit/development/big-data-project/subsets/final-c/output", true));
 			for (File file : files) {
-				if (!file.getName().matches("part-m.*"))
+				if (!file.getName().matches("part-r.*"))
 					continue;
 				SequenceFile.Reader reader = new SequenceFile.Reader(fs, new Path(file.getAbsolutePath()), conf);
 				IntWritable key = new IntWritable();
-				WeightedVectorWritable value = new WeightedVectorWritable();
+				ClusterWritable value = new ClusterWritable();
 				while (reader.next(key, value)) {
-					NamedVector vector = (NamedVector) value.getVector();
-					String vectorName = vector.getName();
+					Kluster vector = (Kluster) value.getValue();
+					String vectorName = vector.computeCentroid().toString();
 					bw.write(vectorName + "\t" + key.toString() + "\n");
 					System.out.println(i++);
 				}
